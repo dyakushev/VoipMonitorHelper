@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            "%d [%t] %-5level %logger{36} - %msg%n%throwable"
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <RollingFile name="AgentNameFileAppender" fileName="logs/agent_name.log"
+                     filePattern="logs/agent_name-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+
+        <RollingFile name="AsteriskExtensionFileAppender" fileName="logs/asterisk_extension.log"
+                     filePattern="logs/asterisk_extension-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="ApplicationFileAppender" fileName="logs/application.log"
+                     filePattern="logs/application-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="ru.biatech.voip.service.impl.AgentNameServiceImpl" level="warn" additivity="false">
+            <AppenderRef ref="AgentNameFileAppender"/>
+        </Logger>
+
+        <Logger name="ru.biatech.voip.service.impl.AsteriskExtensionServiceImpl" level="warn" additivity="false">
+            <AppenderRef ref="AsteriskExtensionFileAppender"/>
+        </Logger>
+
+        <Logger name="ru.biatech.voip.task.AgentNameScheduledTask" level="info" additivity="false">
+            <AppenderRef ref="ApplicationFileAppender"/>
+        </Logger>
+
+        <Logger name="ru.biatech.voip.VoipMonitorHelperApplication" level="info" additivity="false">
+            <AppenderRef ref="ApplicationFileAppender"/>
+        </Logger>
+
+        <Root level="error">
+            <!--   <AppenderRef ref="ConsoleAppender"/>-->
+            <AppenderRef ref="ApplicationFileAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
