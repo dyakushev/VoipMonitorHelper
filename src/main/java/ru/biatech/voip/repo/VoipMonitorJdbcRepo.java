@@ -7,13 +7,10 @@ import java.util.Optional;
 public interface VoipMonitorJdbcRepo<T> {
     Optional<T> getCdrById(Long id);
 
-    int updateCdrNextById(Integer id, String agentName);
-
     int insertIntoAgentCdr(Long cdrId, String agentId, String agentLogin, String agentEnterpriseName, String agentSkill, String callType);
 
     List<T> getCdrsBetweenDates(Timestamp date1, Timestamp date2);
 
-    List<T> getCdrsByLastIdAndDate(Long id, Timestamp date1);
 
     List<T> getCdrsByLastIdAndId(Long id1, Long id2);
 

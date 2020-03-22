@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ru.biatech.voip.model.Cdr;
-import ru.biatech.voip.model.CdrNext;
 import ru.biatech.voip.repo.VoipMonitorJdbcRepo;
 
 import java.sql.ResultSet;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @Repository
 public class VoipMonitorJdbcRepoImpl implements VoipMonitorJdbcRepo<Cdr> {
     private RowMapper<Cdr> cdrRowMapper = new CdrRowMapper();
-    private RowMapper<CdrNext> cdrNextRowMapper = new CdrNextRowMapper();
+
     private JdbcTemplate jdbcTemplate;
 
     public VoipMonitorJdbcRepoImpl(@Qualifier("voipMonitorJdbcTemplate") JdbcTemplate jdbcTemplate) {
@@ -48,11 +47,11 @@ public class VoipMonitorJdbcRepoImpl implements VoipMonitorJdbcRepo<Cdr> {
         return jdbcTemplate.queryForObject(sql, Long.class, date);
     }
 
-    @Override
+  /*  @Override
     public List<Cdr> getCdrsByLastIdAndDate(Long id, Timestamp date1) {
         String sql = "select * from cdr where ID>? and Date(callend)<?";
         return jdbcTemplate.query(sql, cdrRowMapper, id, date1);
-    }
+    }*/
 
     @Override
     public Long getLastCdrAgentId() {
@@ -85,18 +84,6 @@ public class VoipMonitorJdbcRepoImpl implements VoipMonitorJdbcRepo<Cdr> {
     }
 
 
-    @Override
-    public int updateCdrNextById(Integer id, String agentName) {
-        String selectSql = "select custom_header1 from cdr_next where cdr_ID=?";
-        List<CdrNext> cdrNextList = jdbcTemplate.query(selectSql, cdrNextRowMapper, id);
-        if (!cdrNextList.isEmpty())
-            if (cdrNextList.size() == 1) {
-                String updateSql = "update cdr_next set custom_header1=? where cdr_ID=?";
-                return jdbcTemplate.update(updateSql, agentName, id);
-            }
-        return 0;
-    }
-
     private class CdrRowMapper implements RowMapper<Cdr> {
         @Override
         public Cdr mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -113,19 +100,6 @@ public class VoipMonitorJdbcRepoImpl implements VoipMonitorJdbcRepo<Cdr> {
                     .called(called)
                     .duration(duration)
                     .caller(caller)
-                    .build();
-        }
-    }
-
-    private class CdrNextRowMapper implements RowMapper<CdrNext> {
-        @Override
-        public CdrNext mapRow(ResultSet resultSet, int i) throws SQLException {
-            Long id = resultSet.getLong("cdr_ID");
-            String agentName = resultSet.getString("custom_header1");
-            return CdrNext
-                    .builder()
-                    .cdrId(id)
-                    .agentName(agentName)
                     .build();
         }
     }
