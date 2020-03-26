@@ -37,27 +37,35 @@ class HdsJdbcRepoImplTest {
 
     @Test
     void getTcdByDateAndExtention_TcdExists_ReturnsOptionalTcd() {
+        //given
         Optional<Tcd> optionalTcd = hdsJdbcRepo.getTcdByDateAndExtention(dateTimeStart, dateTimeEnd, 0, EXTENSION_1);
+        //then
         assertThat(optionalTcd.isPresent()).isTrue();
         assertThat(optionalTcd.get().getAgentPeripheralNumber()).isEqualTo(PERIPHERAL_NUMBER_1);
     }
 
     @Test
     void getTcdByDateAndExtention_TcdDoesNotExist_ReturnsOptionalEmpty() {
+        //given
         Optional<Tcd> optionalTcd = hdsJdbcRepo.getTcdByDateAndExtention(dateTimeStart, dateTimeEnd, 0, EXTENSION_2);
+        //then
         assertThat(optionalTcd.isEmpty()).isTrue();
     }
 
     @Test
     void getTcdByDateAndExtentionAndAni_TcdExists_ReturnsOptionalTcd() {
+        //given
         Optional<Tcd> optionalTcd = hdsJdbcRepo.getTcdByDateAndExtentionAndAni(dateTimeStart, dateTimeEnd, 0, EXTENSION_1, ANI_1);
+        //then
         assertThat(optionalTcd.isPresent()).isTrue();
         assertThat(optionalTcd.get().getAgentPeripheralNumber()).isEqualTo(PERIPHERAL_NUMBER_1);
     }
 
     @Test
     void getTcdByDateAndExtentionAndAni_TcdDoesNotExist_ReturnsOptionalEmpty() {
+        //given
         Optional<Tcd> optionalTcd = hdsJdbcRepo.getTcdByDateAndExtentionAndAni(dateTimeStart, dateTimeEnd, 0,EXTENSION_2, ANI_1);
+        //then
         assertThat(optionalTcd.isEmpty()).isTrue();
     }
 }

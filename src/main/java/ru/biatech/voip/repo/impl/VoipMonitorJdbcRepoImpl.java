@@ -74,7 +74,7 @@ public class VoipMonitorJdbcRepoImpl implements VoipMonitorJdbcRepo<Cdr> {
 
     @Override
     public Optional<Cdr> getCdrById(Long id) {
-        String sql = "select ID,calldate,callend,duration,caller,called  from cdr where id=?";
+        String sql = "select ID,calldate,callend,duration,caller,called  from cdr where ID=?";
         List<Cdr> cdrList = jdbcTemplate.query(sql, cdrRowMapper, id);
         if (!cdrList.isEmpty()) {
             if (cdrList.size() == 1)

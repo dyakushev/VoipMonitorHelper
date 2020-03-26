@@ -40,10 +40,13 @@ public class AsteriskExtensionServiceImpl implements AsteriskExtensionService {
 
     @Override
     public boolean isCdrSuitable(Cdr cdr) {
+        if (cdr == null)
+            return false;
         String called = cdr.getCalled();
         String caller = cdr.getCaller();
-        if (isExtensionMatch(called) || isExtensionMatch(caller))
-            return true;
+        if (called != null && caller != null)
+            if (isExtensionMatch(called) || isExtensionMatch(caller))
+                return true;
         return false;
     }
 

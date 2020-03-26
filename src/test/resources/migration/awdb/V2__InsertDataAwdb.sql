@@ -8,11 +8,11 @@ insert into t_Agent (EnterpriseName, PersonID, PeripheralNumber, SkillTargetID)
 values ('Testoviy_test3', 3, '3', 3);
 
 insert into t_Agent_Logout (SkillTargetID, Extension, LogoutDateTime)
-values (1, '50000', '2020-03-17T14:00:00');
+values (1, '1000', '2020-03-17T14:00:00');
 
 
 insert into t_Agent_Real_Time(SkillTargetID, SkillGroupSkillTargetID, Extension)
-values (2, 2, '50001');
+values (2, 2, '1001');
 
 insert into t_Person(LoginName, PersonID)
 values ('ttestoviy1', 1);

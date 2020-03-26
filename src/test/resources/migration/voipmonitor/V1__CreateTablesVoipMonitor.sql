@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS cdr;
+DROP TABLE IF EXISTS cdr_agent;
 CREATE TABLE cdr
 (
     ID       bigint,
@@ -14,5 +16,6 @@ CREATE TABLE cdr_agent
     agent_login           varchar(255),
     agent_enterprise_name varchar(255),
     agent_skill           varchar(255),
-    call_type             varchar(255)
+    call_type             varchar(255),
+    PRIMARY KEY (cdr_id)
 );

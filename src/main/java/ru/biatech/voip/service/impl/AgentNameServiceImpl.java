@@ -53,7 +53,13 @@ public class AgentNameServiceImpl implements AgentNameService {
         return false;
     }
 
+
     @Override
+    /**
+     * @deprecated
+     * Use getCdrListUntilDate(Timestamp date1) instead
+     */
+    @Deprecated
     public List<Cdr> getCdrListBetweenDates(Timestamp date1, Timestamp date2) {
         try {
             return voipMonitorJdbcRepo.getCdrsBetweenDates(date1, date2);
