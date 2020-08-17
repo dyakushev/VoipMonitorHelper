@@ -1,0 +1,11 @@
+[Unit]
+Description=CDRModifier Daemon
+
+[Service]
+WorkingDirectory=/data/cdrmodifier
+ExecStart=/usr/bin/java -Dlogging.config=./conf/log4j2.xml -jar voipmonitorhelper-0.0.1-SNAPSHOT.jar --spring.config.location=./conf/application.properties
+User=root
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
